@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Projetos" author="ISAAC LUZ" content="width=device-width, initial-scale=1.0">
+    <title>5 Projetos Web Funcionais</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .project-header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        button.danger {
+            background-color: var(--danger);
+        }
+        
+        button.danger:hover {
+            background-color: #c0392b;
+        }
+        
+        button.success {
+            background-color: var(--secondary);
+        }
+        
+        button.success:hover {
+            background-color: #27ae60;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calculator-display {
+            grid-column: 1 / span 4;
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem;
+            text-align: right;
+            font-size: 1.5rem;
+            border-radius: 4px;
+            min-height: 60px;
+        }
+        
+        .calculator button {
+            padding: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .calculator .span-2 {
+            grid-column: span 2;
+        }
+        
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-text {
+            flex-grow: 1;
+            margin: 0 1rem;
+        }
+        
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .clock-container {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .time-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--dark);
+        }
+        
+        .date-display {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background-color: var(--primary);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .memory-card.flipped {
+            background-color: var(--secondary);
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card.matched {
+            background-color: var(--secondary);
+            cursor: default;
+        }
+        
+        .quote-container {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .quote-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .quote-author {
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .history {
+            margin-top: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 0.5rem;
+        }
+        
+        .history-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-display {
+                font-size: 2rem;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>5 Projetos Web Funcionais</h1>
+        <p class="subtitle">Projetos básicos e completos usando HTML, CSS e JavaScript</p>
+    </header>
+    
+    <div class="container">
+        <div class="projects-grid">
+            <!-- Projeto 1: Calculadora -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h2>Calculadora</h2>
+                </div>
+                <div class="project-content">
+                    <div class="calculator-display" id="calcDisplay">0</div>
+                    <div class="calculator">
+                        <button class="danger" onclick="clearCalculator()">C</button>
+                        <button onclick="appendToDisplay('(')">(</button>
+                        <button onclick="appendToDisplay(')')">)</button>
+                        <button onclick="appendToDisplay('/')">/</button>
+                        
+                        <button onclick="appendToDisplay('7')">7</button>
+                        <button onclick="appendToDisplay('8')">8</button>
+                        <button onclick="appendToDisplay('9')">9</button>
+                        <button onclick="appendToDisplay('*')">×</button>
+                        
+                        <button onclick="appendToDisplay('4')">4</button>
+                        <button onclick="appendToDisplay('5')">5</button>
+                        <button onclick="appendToDisplay('6')">6</button>
+                        <button onclick="appendToDisplay('-')">-</button>
+                        
+                        <button onclick="appendToDisplay('1')">1</button>
+                        <button onclick="appendToDisplay('2')">2</button>
+                        <button onclick="appendToDisplay('3')">3</button>
+                        <button onclick="appendToDisplay('+')">+</button>
+                        
+                        <button class="span-2" onclick="appendToDisplay('0')">0</button>
+                        <button onclick="appendToDisplay('.')">.</button>
+                        <button class="success" onclick="calculateResult()">=</button>
+                    </div>
+                    
+                    <h3 style="margin-top: 1rem;">Histórico</h3>
+                    <div class="history" id="calcHistory"></div>
+                </div>
+            </div>
+            
+            <!-- Projeto 2: Lista de Tarefas -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h2>Lista de Tarefas</h2>
+                </div>
+                <div class="project-content">
+                    <div style="display: flex; margin-bottom: 1rem;">
+                        <input type="text" id="taskInput" placeholder="Nova tarefa...">
+                        <button onclick="addTask()">Adicionar</button>
+                    </div>
+                    
+                    <div id="taskList">
+                        <!-- Tarefas serão adicionadas aqui via JavaScript -->
+                    </div>
+                    
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <button class="danger" onclick="clearCompletedTasks()">Limpar Concluídas</button>
+                        <button class="danger" onclick="clearAllTasks()" style="margin-left: 0.5rem;">Limpar Todas</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 3: Relógio Digital -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h2>Relógio Digital</h2>
+                </div>
+                <div class="project-content">
+                    <div class="clock-container">
+                        <div class="time-display" id="timeDisplay">00:00:00</div>
+                        <div class="date-display" id="dateDisplay">Carregando...</div>
+                        
+                        <select id="timezoneSelect" onchange="updateClock()">
+                            <option value="local">Fuso Horário Local</option>
+                            <option value="UTC">UTC</option>
+                            <option value="America/New_York">Nova York (EST)</option>
+                            <option value="Europe/London">Londres (GMT)</option>
+                            <option value="Asia/Tokyo">Tóquio (JST)</option>
+                        </select>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <h3>Cronômetro</h3>
+                            <div class="time-display" id="stopwatchDisplay">00:00:00</div>
+                            <div class="controls">
+                                <button id="startStopwatch" onclick="startStopwatch()">Iniciar</button>
+                                <button id="pauseStopwatch" onclick="pauseStopwatch()" class="hidden">Pausar</button>
+                                <button onclick="resetStopwatch()">Zerar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 4: Jogo da Memória -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h2>Jogo da Memória</h2>
+                </div>
+                <div class="project-content">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <div>Movimentos: <span id="moveCount">0</span></div>
+                        <div>Pares Encontrados: <span id="matchCount">0</span>/8</div>
+                    </div>
+                    
+                    <div class="memory-grid" id="memoryGrid">
+                        <!-- Cartas serão geradas via JavaScript -->
+                    </div>
+                    
+                    <div class="controls" style="margin-top: 1rem;">
+                        <button onclick="startGame()">Novo Jogo</button>
+                        <button onclick="resetGame()">Reiniciar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 5: Gerador de Citações -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h2>Gerador de Citações</h2>
+                </div>
+                <div class="project-content">
+                    <div class="quote-container">
+                        <div class="quote-text" id="quoteText">Clique no botão para gerar uma citação</div>
+                        <div class="quote-author" id="quoteAuthor"></div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button onclick="generateQuote()">Nova Citação</button>
+                        <button id="favoriteBtn" onclick="toggleFavorite()">⭐ Favoritar</button>
+                        <button onclick="shareQuote()">📤 Compartilhar</button>
+                    </div>
+                    
+                    <h3 style="margin-top: 1.5rem;">Citações Favoritas</h3>
+                    <div class="history" id="favoritesList">
+                        <!-- Citações favoritas serão adicionadas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Desenvolvido com HTML, CSS e JavaScript puro</p>
+    </footer>
+
+    <script>
+        // ========== PROJETO 1: CALCULADORA ==========
+        let calcDisplay = document.getElementById('calcDisplay');
+        let calcHistory = document.getElementById('calcHistory');
+        let currentExpression = '';
+        let history = [];
+        
+        function appendToDisplay(value) {
+            if (calcDisplay.textContent === '0' || calcDisplay.textContent === 'Erro') {
+                calcDisplay.textContent = value;
+            } else {
+                calcDisplay.textContent += value;
+            }
+            currentExpression = calcDisplay.textContent;
+        }
+        
+        function clearCalculator() {
+            calcDisplay.textContent = '0';
+            currentExpression = '';
+        }
+        
+        function calculateResult() {
+            try {
+                // Substituir × por * para avaliação
+                let expression = currentExpression.replace(/×/g, '*');
+                let result = eval(expression);
+                
+                // Adicionar ao histórico
+                history.unshift(`${currentExpression} = ${result}`);
+                if (history.length > 5) history.pop();
+                
+                // Atualizar display e histórico
+                calcDisplay.textContent = result;
+                currentExpression = result.toString();
+                
+                updateCalcHistory();
+            } catch (error) {
+                calcDisplay.textContent = 'Erro';
+                currentExpression = '';
+            }
+        }
+        
+        function updateCalcHistory() {
+            calcHistory.innerHTML = '';
+            history.forEach(item => {
+                let historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.textContent = item;
+                calcHistory.appendChild(historyItem);
+            });
+        }
+        
+        // ========== PROJETO 2: LISTA DE TAREFAS ==========
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let taskInput = document.getElementById('taskInput');
+        let taskList = document.getElementById('taskList');
+        
+        function renderTasks() {
+            taskList.innerHTML = '';
+            
+            if (tasks.length === 0) {
+                taskList.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma tarefa adicionada</p>';
+                return;
+            }
+            
+            tasks.forEach((task, index) => {
+                let taskItem = document.createElement('div');
+                taskItem.className = 'task-item';
+                
+                let checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = task.completed;
+                checkbox.onchange = () => toggleTask(index);
+                
+                let taskText = document.createElement('span');
+                taskText.className = 'task-text' + (task.completed ? ' completed' : '');
+                taskText.textContent = task.text;
+                
+                let deleteBtn = document.createElement('button');
+                deleteBtn.className = 'danger';
+                deleteBtn.textContent = 'Excluir';
+                deleteBtn.onclick = () => deleteTask(index);
+                
+                taskItem.appendChild(checkbox);
+                taskItem.appendChild(taskText);
+                taskItem.appendChild(deleteBtn);
+                
+                taskList.appendChild(taskItem);
+            });
+        }
+        
+        function addTask() {
+            let text = taskInput.value.trim();
+            if (text === '') return;
+            
+            tasks.push({
+                text: text,
+                completed: false
+            });
+            
+            saveTasks();
+            taskInput.value = '';
+            renderTasks();
+        }
+        
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+        }
+        
+        function toggleTask(index) {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            renderTasks();
+        }
+        
+        function clearCompletedTasks() {
+            tasks = tasks.filter(task => !task.completed);
+            saveTasks();
+            renderTasks();
+        }
+        
+        function clearAllTasks() {
+            if (confirm('Tem certeza que deseja excluir todas as tarefas?')) {
+                tasks = [];
+                saveTasks();
+                renderTasks();
+            }
+        }
+        
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+        
+        // Permitir adicionar tarefa com Enter
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+        
+        // ========== PROJETO 3: RELÓGIO DIGITAL ==========
+        let timeDisplay = document.getElementById('timeDisplay');
+        let dateDisplay = document.getElementById('dateDisplay');
+        let timezoneSelect = document.getElementById('timezoneSelect');
+        let stopwatchDisplay = document.getElementById('stopwatchDisplay');
+        
+        let stopwatchInterval;
+        let stopwatchRunning = false;
+        let stopwatchTime = 0;
+        
+        function updateClock() {
+            let now = new Date();
+            let timezone = timezoneSelect.value;
+            
+            if (timezone !== 'local') {
+                let options = { 
+                    timeZone: timezone,
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+                timeDisplay.textContent = now.toLocaleTimeString('pt-BR', options);
+                
+                options = { 
+                    timeZone: timezone,
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                dateDisplay.textContent = now.toLocaleDateString('pt-BR', options);
+            } else {
+                timeDisplay.textContent = now.toLocaleTimeString('pt-BR');
+                dateDisplay.textContent = now.toLocaleDateString('pt-BR', { 
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+        }
+        
+        function startStopwatch() {
+            if (!stopwatchRunning) {
+                stopwatchRunning = true;
+                document.getElementById('startStopwatch').classList.add('hidden');
+                document.getElementById('pauseStopwatch').classList.remove('hidden');
+                
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime++;
+                    updateStopwatchDisplay();
+                }, 1000);
+            }
+        }
+        
+        function pauseStopwatch() {
+            stopwatchRunning = false;
+            document.getElementById('startStopwatch').classList.remove('hidden');
+            document.getElementById('pauseStopwatch').classList.add('hidden');
+            clearInterval(stopwatchInterval);
+        }
+        
+        function resetStopwatch() {
+            pauseStopwatch();
+            stopwatchTime = 0;
+            updateStopwatchDisplay();
+        }
+        
+        function updateStopwatchDisplay() {
+            let hours = Math.floor(stopwatchTime / 3600);
+            let minutes = Math.floor((stopwatchTime % 3600) / 60);
+            let seconds = stopwatchTime % 60;
+            
+            stopwatchDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // ========== PROJETO 4: JOGO DA MEMÓRIA ==========
+        let memoryGrid = document.getElementById('memoryGrid');
+        let moveCount = document.getElementById('moveCount');
+        let matchCount = document.getElementById('matchCount');
+        
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let gameStarted = false;
+        
+        const symbols = ['🍎', '🍌', '🍒', '🍇', '🍊', '🍓', '🥝', '🍉'];
+        
+        function initializeGame() {
+            // Duplicar e embaralhar símbolos
+            let gameCards = [...symbols, ...symbols];
+            gameCards.sort(() => Math.random() - 0.5);
+            
+            // Criar cartas
+            cards = gameCards.map((symbol, index) => ({
+                id: index,
+                symbol: symbol,
+                flipped: false,
+                matched: false
+            }));
+            
+            renderMemoryGame();
+            matchedPairs = 0;
+            moves = 0;
+            updateGameStats();
+        }
+        
+        function renderMemoryGame() {
+            memoryGrid.innerHTML = '';
+            cards.forEach(card => {
+                let cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                if (card.flipped || card.matched) {
+                    cardElement.classList.add('flipped');
+                    cardElement.textContent = card.symbol;
+                }
+                if (card.matched) {
+                    cardElement.classList.add('matched');
+                }
+                
+                cardElement.addEventListener('click', () => flipCard(card.id));
+                memoryGrid.appendChild(cardElement);
+            });
+        }
+        
+        function flipCard(cardId) {
+            if (!gameStarted) return;
+            
+            let card = cards[cardId];
+            
+            // Não permitir virar cartas já viradas ou combinadas
+            if (card.flipped || card.matched || flippedCards.length >= 2) return;
+            
+            // Virar a carta
+            card.flipped = true;
+            flippedCards.push(card);
+            
+            renderMemoryGame();
+            
+            // Verificar se duas cartas foram viradas
+            if (flippedCards.length === 2) {
+                moves++;
+                updateGameStats();
+                
+                // Verificar se as cartas combinam
+                if (flippedCards[0].symbol === flippedCards[1].symbol) {
+                    // Combinaram
+                    flippedCards[0].matched = true;
+                    flippedCards[1].matched = true;
+                    matchedPairs++;
+                    
+                    flippedCards = [];
+                    
+                    if (matchedPairs === symbols.length) {
+                        setTimeout(() => {
+                            alert(`Parabéns! Você completou o jogo em ${moves} movimentos!`);
+                        }, 500);
+                    }
+                } else {
+                    // Não combinaram - virar de volta após um tempo
+                    setTimeout(() => {
+                        flippedCards[0].flipped = false;
+                        flippedCards[1].flipped = false;
+                        flippedCards = [];
+                        renderMemoryGame();
+                    }, 1000);
+                }
+            }
+        }
+        
+        function updateGameStats() {
+            moveCount.textContent = moves;
+            matchCount.textContent = `${matchedPairs}/${symbols.length}`;
+        }
+        
+        function startGame() {
+            gameStarted = true;
+            initializeGame();
+        }
+        
+        function resetGame() {
+            gameStarted = false;
+            flippedCards = [];
+            initializeGame();
+        }
+        
+        // ========== PROJETO 5: GERADOR DE CITAÇÕES ==========
+        let quoteText = document.getElementById('quoteText');
+        let quoteAuthor = document.getElementById('quoteAuthor');
+        let favoritesList = document.getElementById('favoritesList');
+        let favoriteBtn = document.getElementById('favoriteBtn');
+        
+        let currentQuote = {};
+        let favorites = JSON.parse(localStorage.getItem('favoriteQuotes')) || [];
+        
+        const quotes = [
+            {
+                text: "A vida é o que acontece enquanto você está ocupado fazendo outros planos.",
+                author: "John Lennon"
+            },
+            {
+                text: "A simplicidade é o último grau de sofisticação.",
+                author: "Leonardo da Vinci"
+            },
+            {
+                text: "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
+                author: "Robert Collier"
+            },
+            {
+                text: "A única maneira de fazer um excelente trabalho é amar o que você faz.",
+                author: "Steve Jobs"
+            },
+            {
+                text: "Não espere por circunstâncias ideais. Crie-as.",
+                author: "George Bernard Shaw"
+            },
+            {
+                text: "O ontem é história, o amanhã é um mistério, mas o hoje é uma dádiva. Por isso se chama presente.",
+                author: "Bil Keane"
+            },
+            {
+                text: "Acredite que você pode, assim você já está no meio do caminho.",
+                author: "Theodore Roosevelt"
+            },
+            {
+                text: "O que sabemos é uma gota, o que ignoramos é um oceano.",
+                author: "Isaac Newton"
+            },
+            {
+                text: "A melhor maneira de prever o futuro é criá-lo.",
+                author: "Peter Drucker"
+            },
+            {
+                text: "A persistência é o caminho do êxito.",
+                author: "Charles Chaplin"
+            }
+        ];
+        
+        function generateQuote() {
+            let randomIndex = Math.floor(Math.random() * quotes.length);
+            currentQuote = quotes[randomIndex];
+            
+            quoteText.textContent = `"${currentQuote.text}"`;
+            quoteAuthor.textContent = `- ${currentQuote.author}`;
+            
+            // Verificar se a citação atual está nos favoritos
+            let isFavorite = favorites.some(fav => 
+                fav.text === currentQuote.text && fav.author === currentQuote.author);
+            
+            updateFavoriteButton(isFavorite);
+        }
+        
+        function toggleFavorite() {
+            let isFavorite = favorites.some(fav => 
+                fav.text === currentQuote.text && fav.author === currentQuote.author);
+            
+            if (isFavorite) {
+                // Remover dos favoritos
+                favorites = favorites.filter(fav => 
+                    !(fav.text === currentQuote.text && fav.author === currentQuote.author));
+                updateFavoriteButton(false);
+            } else {
+                // Adicionar aos favoritos
+                favorites.push(currentQuote);
+                updateFavoriteButton(true);
+            }
+            
+            saveFavorites();
+            renderFavorites();
+        }
+        
+        function updateFavoriteButton(isFavorite) {
+            if (isFavorite) {
+                favoriteBtn.textContent = '★ Favoritado';
+                favoriteBtn.style.backgroundColor = '#f39c12';
+            } else {
+                favoriteBtn.textContent = '⭐ Favoritar';
+                favoriteBtn.style.backgroundColor = '';
+            }
+        }
+        
+        function shareQuote() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Citação Inspiradora',
+                    text: `"${currentQuote.text}" - ${currentQuote.author}`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback para copiar para a área de transferência
+                let textToCopy = `"${currentQuote.text}" - ${currentQuote.author}`;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    alert('Citação copiada para a área de transferência!');
+                });
+            }
+        }
+        
+        function renderFavorites() {
+            favoritesList.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma citação favorita</p>';
+                return;
+            }
+            
+            favorites.forEach((quote, index) => {
+                let favoriteItem = document.createElement('div');
+                favoriteItem.className = 'history-item';
+                
+                let quoteElement = document.createElement('div');
+                quoteElement.style.fontStyle = 'italic';
+                quoteElement.textContent = `"${quote.text}"`;
+                
+                let authorElement = document.createElement('div');
+                authorElement.style.fontWeight = 'bold';
+                authorElement.style.marginTop = '0.25rem';
+                authorElement.textContent = `- ${quote.author}`;
+                
+                let removeBtn = document.createElement('button');
+                removeBtn.className = 'danger';
+                removeBtn.textContent = 'Remover';
+                removeBtn.style.marginTop = '0.5rem';
+                removeBtn.onclick = () => removeFavorite(index);
+                
+                favoriteItem.appendChild(quoteElement);
+                favoriteItem.appendChild(authorElement);
+                favoriteItem.appendChild(removeBtn);
+                
+                favoritesList.appendChild(favoriteItem);
+            });
+        }
+        
+        function removeFavorite(index) {
+            favorites.splice(index, 1);
+            saveFavorites();
+            renderFavorites();
+            
+            // Atualizar botão de favorito se a citação atual foi removida
+            if (currentQuote.text && currentQuote.author) {
+                let isFavorite = favorites.some(fav => 
+                    fav.text === currentQuote.text && fav.author === currentQuote.author);
+                updateFavoriteButton(isFavorite);
+            }
+        }
+        
+        function saveFavorites() {
+            localStorage.setItem('favoriteQuotes', JSON.stringify(favorites));
+        }
+        
+        // ========== INICIALIZAÇÃO ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar calculadora
+            updateCalcHistory();
+            
+            // Inicializar lista de tarefas
+            renderTasks();
+            
+            // Inicializar relógio
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            // Inicializar jogo da memória
+            initializeGame();
+            
+            // Inicializar gerador de citações
+            generateQuote();
+            renderFavorites();
+        });
+    </script>
+</body>
+</html>
